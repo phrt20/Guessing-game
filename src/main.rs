@@ -53,6 +53,7 @@ The secret number was {secretnumber}"
     
     if score == 5 {
         println!("I give up, you win, you are psychic.");
+        break;
     };
     }
 }

@@ -1,12 +1,8 @@
-extern crate global_counter;
-
-use global_counter::primitive::exact::CounterI16;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
 fn main() {
-    let score: u8 = 0;
-    static SCORECNT: CounterI16 = CounterI16::new(0);
+    let mut score: u8 = 0;
 
     println!("Welcome to my super cool ultra fun guessing game. Enter a number from 1-5 and if you are correct, continue on. Good luck!");
 
@@ -25,30 +21,30 @@ fn main() {
             Err(_) => continue,
         };
 
-        let secretnumber = rand::thread_rng().gen_range(1..=5);
+        let secretnumber = rand::thread_rng().gen_range(1..=1);
 
         match guess.cmp(&secretnumber) {
             Ordering::Equal => {
-                SCORECNT.inc();
-                let score = SCORECNT.get();
+               score += 1;
                 println!("
-You got it! You're score is {score}");},
-            Ordering::Less => {
-                let score = SCORECNT.get();
-                println!("
- You finished with a score of {score}!
-The secret number was {secretnumber}"
-                );
-                break;
-            }
-            Ordering::Greater => {
-                let score = SCORECNT.get();
+You got it! You're score is {score}");
+},
+
+            Ordering::Less => {               
                 println!("
  You finished with a score of {score}!
 The secret number was {secretnumber}"
                 );
                 break;
-            }
+            },
+
+            Ordering::Greater => {               
+                println!("
+ You finished with a score of {score}!
+The secret number was {secretnumber}"
+                );
+                break;
+            },
         };
     
     if score == 5 {
